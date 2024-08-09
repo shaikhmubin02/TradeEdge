@@ -1,22 +1,29 @@
 "use client";
 
 import { signIn, signOut, useSession } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PrimaryButton } from './Button';
 import { useRouter } from 'next/navigation';
 
 const Appbar = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    setIsSignedIn(!!session?.user);
+  }, [session]);
 
   const handleSignOut = async () => {
-    setIsSigningOut(true); 
+    setIsSigningOut(true);
     try {
-      await signOut({ redirect: false }); 
-      router.push('/'); 
+      await signOut({ redirect: false });
+      setIsSignedIn(false);  // Clear the signed-in state
+      router.push('/');
     } catch (error) {
       console.error("Sign out error:", error);
+      setIsSigningOut(false);  // Revert the signing out state if there's an error
     }
   };
 
@@ -26,9 +33,13 @@ const Appbar = () => {
         NexTrade
       </div>
       <div className='flex flex-row justify-center gap-3'>
-        <span className='font-medium pt-4'>Welcome, {session?.user.name?.split(' ')[0]}</span>
+        {isSignedIn && (
+          <span className='font-medium pt-4'>
+            Welcome, {session?.user?.name?.split(' ')[0]}
+          </span>
+        )}
         <div className='pt-2'>
-          {session?.user && !isSigningOut ? (
+          {isSignedIn && !isSigningOut ? (
             <PrimaryButton onClick={handleSignOut}>
               Logout
             </PrimaryButton>
