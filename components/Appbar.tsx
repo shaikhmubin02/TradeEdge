@@ -11,10 +11,10 @@ const Appbar = () => {
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   const handleSignOut = async () => {
-    setIsSigningOut(true); // Immediately change the button to "Sign In"
+    setIsSigningOut(true); 
     try {
-      await signOut({ redirect: false }); // Prevent NextAuth's default redirect
-      router.push('/'); // Manually redirect after updating the UI
+      await signOut({ redirect: false }); 
+      router.push('/'); 
     } catch (error) {
       console.error("Sign out error:", error);
     }
@@ -25,16 +25,19 @@ const Appbar = () => {
       <div className='text-xl font-bold flex flex-col justify-center'>
         NexTrade
       </div>
-      <div>
-        {session?.user && !isSigningOut ? (
-          <PrimaryButton onClick={handleSignOut}>
-            Logout
-          </PrimaryButton>
-        ) : (
-          <PrimaryButton onClick={() => signIn('google')}>
-            Sign In
-          </PrimaryButton>
-        )}
+      <div className='flex flex-row justify-center gap-3'>
+        <span className='font-medium pt-4'>Welcome, {session?.user.name?.split(' ')[0]}</span>
+        <div className='pt-2'>
+          {session?.user && !isSigningOut ? (
+            <PrimaryButton onClick={handleSignOut}>
+              Logout
+            </PrimaryButton>
+          ) : (
+            <PrimaryButton onClick={() => signIn('google')}>
+              Sign In
+            </PrimaryButton>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -13,8 +13,9 @@ const Hero = () => {
 
   return (
     <div>
-      <div className='flex text-4xl font-bold justify-center pt-20'>
-        The Indian Cryptocurrency <span className='text-blue-600 mx-2'> Revolution</span>
+      <div className='flex flex-col md:flex-row text-3xl md:text-4xl font-bold justify-center pt-10 md:pt-20 text-center md:text-left'>
+         The Indian Cryptocurrency 
+        <span className='text-blue-600 mx-0 md:mx-2'> Revolution</span>
       </div>
       <div className='flex text-black-900 justify-center pt-6'>
         Create a frictionless wallet with just a Google Account.
