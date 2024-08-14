@@ -1,13 +1,10 @@
-import Hero from "@/components/Hero";
 import Image from "next/image";
-import Providers from './providers';
+import { Hero } from "./components/Hero";
 
 export default function Home() {
   return (
-    <div>
-      <Providers>
-       <Hero />
-      </Providers>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <Hero />
+    </main>
   );
 }
