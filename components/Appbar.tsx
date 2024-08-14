@@ -19,11 +19,11 @@ const Appbar = () => {
     setIsSigningOut(true);
     try {
       await signOut({ redirect: false });
-      setIsSignedIn(false);  // Clear the signed-in state
+      setIsSignedIn(false); 
       router.push('/');
     } catch (error) {
       console.error("Sign out error:", error);
-      setIsSigningOut(false);  // Revert the signing out state if there's an error
+      setIsSigningOut(false); 
     }
   };
 
